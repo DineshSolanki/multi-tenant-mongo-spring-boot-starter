@@ -6,21 +6,22 @@ import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.lang.NonNull;
 
-@Configuration
 public class MultiTenantMongoDBFactory extends SimpleMongoClientDatabaseFactory {
 
     private final String globalDB;
 
-    @Autowired
-    private TenantHolder tenantHolder;
+    private final TenantHolder tenantHolder;
 
-    public MultiTenantMongoDBFactory(MongoClient mongoClient, String globalDB) {
+    public MultiTenantMongoDBFactory(MongoClient mongoClient, String globalDB, TenantHolder tenantHolder) {
         super(mongoClient, globalDB);
         this.globalDB = globalDB;
+        this.tenantHolder = tenantHolder;
     }
 
     @Override
+    @NonNull
     public MongoDatabase getMongoDatabase() {
         return getMongoClient().getDatabase(getTenantDatabase());
     }

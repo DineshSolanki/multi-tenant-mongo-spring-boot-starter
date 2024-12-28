@@ -8,10 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Configuration
 @ConfigurationProperties(prefix = "tenant.info")
-@Getter @Setter
 public class TenantInfoProperties {
-    private List<TenantInfoSource> source = List.of(TenantInfoSource.HEADER, TenantInfoSource.QUERYPARAM, TenantInfoSource.PATHVARIABLE);
-    private String headerName = "x-tenant-id";
+    private List<TenantInfoSource> source = List.of(TenantInfoSource.HEADER);
+    private String headerName = "X-Tenant-ID";
 }
