@@ -62,6 +62,7 @@ public class MultiTenantMongoAutoConfiguration {
 
     @Bean(name = "mongoTemplateShared")
     @NonNull
+    @ConditionalOnMissingBean
     public MongoTemplate mongoTemplateShared(MongoConfigProperties mongoConfigProperties, MongoClient mongoClient) {
         logger.info("Creating Shared MongoTemplate");
         MongoDatabaseFactory mongoDbFactory = new SimpleMongoClientDatabaseFactory(mongoClient, mongoConfigProperties.getDataBaseName());
