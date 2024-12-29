@@ -225,6 +225,11 @@ When disabled, all data will be stored in the global database (`globaldb`).
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
+Enhancements -
+[ ] Add support for extracting tenant ID from query parameters and path variables.
+[ ] Add support for custom database names based on tenant ID, such as getting database name from other sources.
+[ ] Add support for customizing database password based on tenant ID
+[ ] Add support for automatic sharedTemplate use on basis of SharedCollection annotation.
 ---
 
 ## **License**
