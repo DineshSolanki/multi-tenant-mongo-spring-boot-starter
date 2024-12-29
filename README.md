@@ -23,14 +23,14 @@ Add the library to your project using Maven or Gradle.
 ```xml
 <dependency>
     <groupId>io.github.dineshsolanki</groupId>
-    <artifactId>multitenant-mongo</artifactId>
+    <artifactId>multi-tenant-mongo-spring-boot-starter</artifactId>
     <version>1.0.0</version> <!-- Replace with the actual version -->
 </dependency>
 ```
 
 #### **Gradle (`build.gradle`)**:
 ```groovy
-implementation 'io.github.dineshsolanki:multitenant-mongo:1.0.0' // Replace with the actual version
+implementation 'io.github.dineshsolanki:multi-tenant-mongo-spring-boot-starter:1.0.0' // Replace with the actual version
 ```
 
 ---
@@ -212,12 +212,12 @@ When disabled, all data will be stored in the global database (`globaldb`).
 
 ## **Configuration Options**
 
-| Property                          | Description                                                                 | Default Value |
-|-----------------------------------|-----------------------------------------------------------------------------|---------------|
-| `multi.tenant.mongo.enabled`      | Enable or disable multi-tenancy.                                            | `true`        |
-| `multi.tenant.mongo.dataBaseName` | Name of the global database.                                                | `globaldb`    |
-| `tenant.info.source`              | Source of the tenant ID (e.g., `HEADER`, `QUERYPARAM`, `PATHVARIABLE`).     | `HEADER`      |
-| `tenant.info.headerName`          | Name of the header containing the tenant ID.                                | `x-tenant-id` |
+| Property                           | Description                                                             | Default Value |
+|------------------------------------|-------------------------------------------------------------------------|---------------|
+| `multi.tenant.mongo.enabled`       | Enable or disable multi-tenancy.                                        | `true`        |
+| `spring.data.mongodb.dataBaseName` | Name of the global database.                                            | `globaldb`    |
+| `tenant.info.source`               | Source of the tenant ID (e.g., `HEADER`, `QUERYPARAM`, `PATHVARIABLE`). | `HEADER`      |
+| `tenant.info.headerName`           | Name of the header containing the tenant ID.                            | `x-tenant-id` |
 
 ---
 
