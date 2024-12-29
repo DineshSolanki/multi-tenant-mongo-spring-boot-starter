@@ -4,9 +4,35 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'org.springframework.boot' version '3.4.1' apply false
+    id 'signing'
 }
 
 apply plugin: 'io.spring.dependency-management'
+
+group = 'io.github.dineshsolanki'
+version = '1.0.0'
+archivesBaseName = 'multi-tenant-mongo-spring-boot-starter'
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+
+repositories {
+    mavenCentral()
+}
+jar {
+    archiveFileName = 'multi-tenant-mongo-spring-boot-starter.jar'
+    enabled = true
+}
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -20,45 +46,65 @@ dependencies {
 
 }
 
-dependencyManagement {
-    imports {
-        mavenBom SpringBootPlugin.BOM_COORDINATES
-    }
-}
-
-jar {
-    archiveFileName = 'multi-tenant-mongo-spring-boot-starter.jar'
-    enabled = true
-}
-
-repositories {
-    mavenCentral()
-}
-
-jar {
-    enabled = true
-}
-
-group = 'io.github.dineshsolanki'
-version = '0.0.3-SNAPSHOT'
-
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
 }
 
+tasks.named('javadoc') {
+    options.encoding = 'UTF-8'
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = "io.github.dineshsolanki"
-            artifactId = "multitenant-spring-mongodb"
-            version = "0.0.3-SNAPSHOT"
+            from components.java
+            pom {
+                name = 'Multi Tenant MongoDB Spring Boot Starter'
+                description = 'Multi Tenant MongoDB Spring Boot Starter is a library that provides multi-tenancy support for MongoDB in Spring Boot applications.'
+                url = 'https://dineshsolanki.github.io/multi-tenant-monggodb-starter/overview.html'
 
-            artifact jar
+                scm {
+                    connection = 'scm:git:git://github.com/DineshSolanki/multi-tenant-mongo-spring-boot-starter.git'
+                    developerConnection = 'scm:git:ssh://github.com/DineshSolanki/multi-tenant-mongo-spring-boot-starter.git'
+                    url = 'https://github.com/DineshSolanki/multi-tenant-mongo-spring-boot-starter'
+                }
+
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'DineshSolanki'
+                        name = 'Dinesh Solanki'
+                        email = 'solankid297+sonatype@gmail.com'
+                        url = 'https://github.com/DineshSolanki'
+                        roles = ['developer']
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = System.getenv("SONATYPE_USERNAME")
+                password = System.getenv("SONATYPE_PASSWORD")
+            }
         }
     }
 }
+
+//signing {
+//    sign publishing.publications
+//}
 
 test {
     useJUnitPlatform()
