@@ -12,9 +12,16 @@ apply plugin: 'io.spring.dependency-management'
 group = 'io.github.dineshsolanki'
 version = '1.0.0'
 archivesBaseName = 'multi-tenant-mongo-spring-boot-starter'
-
-
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
 java {
+    withSourcesJar()
+    withJavadocJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
@@ -60,6 +67,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+
             pom {
                 name = 'Multi Tenant MongoDB Spring Boot Starter'
                 description = 'Multi Tenant MongoDB Spring Boot Starter is a library that provides multi-tenancy support for MongoDB in Spring Boot applications.'
@@ -102,9 +110,9 @@ publishing {
     }
 }
 
-//signing {
-//    sign publishing.publications
-//}
+signing {
+    sign publishing.publications.mavenJava
+}
 
 test {
     useJUnitPlatform()
